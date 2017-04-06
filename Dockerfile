@@ -7,6 +7,9 @@ MAINTAINER SequenceIQ
 
 USER root
 
+ENV TZ=Asia/Shanghai
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # install dev tools
 RUN yum clean all; \
     rpm --rebuilddb; \
@@ -22,7 +25,7 @@ RUN cp /root/.ssh/id_rsa.pub /root/.ssh/authorized_keys
 
 
 # java
-RUN curl -LO 'http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.rpm' -H 'Cookie: oraclelicense=accept-securebackup-cookie'
+COPY ./jdk-7u71-linux-x64.rpm ./jdk-7u71-linux-x64.rpm
 RUN rpm -i jdk-7u71-linux-x64.rpm
 RUN rm jdk-7u71-linux-x64.rpm
 
@@ -32,10 +35,12 @@ RUN rm /usr/bin/java && ln -s $JAVA_HOME/bin/java /usr/bin/java
 
 # download native support
 RUN mkdir -p /tmp/native
-RUN curl -L https://github.com/sequenceiq/docker-hadoop-build/releases/download/v2.7.1/hadoop-native-64-2.7.1.tgz | tar -xz -C /tmp/native
+COPY ./hadoop-native-64-2.7.1.tgz ./hadoop-native-64-2.7.1.tgz
+RUN cat hadoop-native-64-2.7.1.tgz | tar -xz -C /tmp/native && rm -rf hadoop-native-64-2.7.1.tgz
 
 # hadoop
-RUN curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-2.7.1/hadoop-2.7.1.tar.gz | tar -xz -C /usr/local/
+COPY ./hadoop-2.7.1.tar.gz hadoop-2.7.1.tar.gz
+RUN cat hadoop-2.7.1.tar.gz | tar -xz -C /usr/local/ && rm -rf hadoop-2.7.1.tar.gz
 RUN cd /usr/local && ln -s ./hadoop-2.7.1 hadoop
 
 ENV HADOOP_PREFIX /usr/local/hadoop
