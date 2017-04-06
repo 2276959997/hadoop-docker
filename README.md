@@ -12,19 +12,20 @@ A few weeks ago we released an Apache Hadoop 2.3 Docker image - this quickly bec
 
 Following the success of our previous Hadoop Docker [images](https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/), the feedback and feature requests we received, we aligned with the Hadoop release cycle, so we have released an Apache Hadoop 2.7.1 Docker image - same as the previous version, it's available as a trusted and automated build on the official Docker [registry](https://registry.hub.docker.com/).
 
+_FYI: All the former Hadoop releases (2.3, 2.4.0, 2.4.1, 2.5.0, 2.5.1, 2.5.2, 2.6.0) are available in the GitHub branches or our [Docker Registry](https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/) - check the tags._
+
 # 适合国内使用的修改
 
 这个版本修改Dockerfile时区为中国区。考虑到中国网络下载下列文件会非常的慢，所以把所有文件全部改为自行提供，而不是通过curl的方式调用，因此需要提供几个文件在当前目录下：
 * [hadoop-2.7.1.tar.gz](http://www.eu.apache.org/dist/hadoop/common/hadoop-2.7.1/hadoop-2.7.1.tar.gz)
 * [hadoop-native-64-2.7.1.tgz](https://github.com/sequenceiq/docker-hadoop-build/releases/download/v2.7.1/hadoop-native-64-2.7.1.tgz)
 * [jdk-7u71-linux-x64.rpm](http://download.oracle.com/otn-pub/java/jdk/7u71-b14/jdk-7u71-linux-x64.rpm)
+
 *可以分别另寻渠道自行下载*
 
 添加docker-compose.yml文件，添加logs映射，快速启动
 
 
-
-_FYI: All the former Hadoop releases (2.3, 2.4.0, 2.4.1, 2.5.0, 2.5.1, 2.5.2, 2.6.0) are available in the GitHub branches or our [Docker Registry](https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/) - check the tags._
 
 # Build the image
 
@@ -49,6 +50,12 @@ In order to use the Docker image you have just build or pulled use:
 
 ```
 docker run -it sequenceiq/hadoop-docker:2.7.1 /etc/bootstrap.sh -bash
+```
+
+Start with docker-compose
+
+```
+docker-compose up -d
 ```
 
 ## Testing
