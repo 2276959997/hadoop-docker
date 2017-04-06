@@ -12,7 +12,7 @@ A few weeks ago we released an Apache Hadoop 2.3 Docker image - this quickly bec
 
 Following the success of our previous Hadoop Docker [images](https://registry.hub.docker.com/u/sequenceiq/hadoop-docker/), the feedback and feature requests we received, we aligned with the Hadoop release cycle, so we have released an Apache Hadoop 2.7.1 Docker image - same as the previous version, it's available as a trusted and automated build on the official Docker [registry](https://registry.hub.docker.com/).
 
-#适合国内使用的修改
+# 适合国内使用的修改
 
 这个版本修改Dockerfile时区为中国区。考虑到中国网络下载下列文件会非常的慢，所以把所有文件全部改为自行提供，而不是通过curl的方式调用，因此需要提供几个文件在当前目录下：
 * [hadoop-2.7.1.tar.gz](http://www.eu.apache.org/dist/hadoop/common/hadoop-2.7.1/hadoop-2.7.1.tar.gz)
